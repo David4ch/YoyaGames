@@ -1,14 +1,14 @@
 package com.example.yoyagames;
 
-import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +26,11 @@ public class BlackJack extends ComponentActivity {
     ImageView plantarse2;
     ImageView fondoOscuro;
     ImageView cogerCarta;
+    ImageView card1j1aux;
+    ImageView card2j1aux;
+    ImageView card1j2aux;
+    ImageView card2j2aux;
+    ImageView card1Crupieraux;
     TextView valorTotal1;
     TextView valorTotal2;
     TextView valorTotalCrupier;
@@ -48,6 +53,12 @@ public class BlackJack extends ComponentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.blackjack);
+
+        card1j1aux = findViewById(R.id.card1j1aux);
+        card2j1aux = findViewById(R.id.card2j1aux);
+        card1j2aux = findViewById(R.id.card1j2aux);
+        card2j2aux = findViewById(R.id.card2j2aux);
+        card1Crupieraux = findViewById(R.id.cardCrupier1aux);
 
         cuentaAtras = findViewById(R.id.cuentaAtras);
         texto1 = findViewById(R.id.tww);
@@ -81,26 +92,10 @@ public class BlackJack extends ComponentActivity {
         fondoOscuro = findViewById(R.id.fondooscuro);
 
 
-
         plantarse1.setClickable(false);
         plantarse2.setClickable(false);
         cogerCarta.setClickable(false);
 
-        new CountDownTimer(6000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                cuentaAtras.setText(Integer.toString( Integer.parseInt(cuentaAtras.getText().toString()) -1 ));
-            }
-            public void onFinish() {
-                empezarPartida();
-            }
-        }.start();
-    }
-
-    private void empezarPartida() {
-
-        texto1.setVisibility(View.INVISIBLE);
-        cuentaAtras.setVisibility(View.INVISIBLE);
-        fondoOscuro.setVisibility(View.INVISIBLE);
         ArrayList<String> baraja = new ArrayList<>();
 
 
@@ -123,36 +118,63 @@ public class BlackJack extends ComponentActivity {
         for (int i = 10; i < 17; i++) {
             manoCrupier.add(baraja.get(i));
         }
-
-        Toast.makeText(getApplicationContext(), "Reparto de cartas", Toast.LENGTH_SHORT).show();
-
-        //ESTABLECER BARAJA Y PUNTUACION INICIAL JUGADOR 1
+        //ESTABLECER BARAJA INICIAL JUGADOR 1
         String imageUrl11 = "https://deckofcardsapi.com/static/img/" + manoJ1.get(0) + ".png";
         Picasso.get().load(imageUrl11).into(listaImagesJ1.get(0));
 
         String imageUrl21 = "https://deckofcardsapi.com/static/img/" + manoJ1.get(1) + ".png";
         Picasso.get().load(imageUrl21).into(listaImagesJ1.get(1));
+
+        //ESTABLECER BARAJA INICIAL JUGADOR 2
+        String imageUrl12 = "https://deckofcardsapi.com/static/img/" + manoJ2.get(0) + ".png";
+        Picasso.get().load(imageUrl12).into(listaImagesJ2.get(0));
+
+        String imageUrl22 = "https://deckofcardsapi.com/static/img/" + manoJ2.get(1) + ".png";
+        Picasso.get().load(imageUrl22).into(listaImagesJ2.get(1));
+
+        //ESTABLECER BARAJA INICIAL CRUPIER
+        String imageCrupier1 = "https://deckofcardsapi.com/static/img/" + manoCrupier.get(0) + ".png";
+        Picasso.get().load(imageCrupier1).into(listaImagesCrupier.get(0));
+
+        new CountDownTimer(4000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                cuentaAtras.setText(Integer.toString(Integer.parseInt(cuentaAtras.getText().toString()) - 1));
+            }
+
+            public void onFinish() {
+                empezarPartida();
+            }
+        }.start();
+    }
+
+    private void empezarPartida() {
+        card1j1aux.setVisibility(View.INVISIBLE);
+        card2j1aux.setVisibility(View.INVISIBLE);
+        card1j2aux.setVisibility(View.INVISIBLE);
+        card2j2aux.setVisibility(View.INVISIBLE);
+        card1Crupieraux.setVisibility(View.INVISIBLE);
+
+        texto1.setVisibility(View.INVISIBLE);
+        cuentaAtras.setVisibility(View.INVISIBLE);
+        fondoOscuro.setVisibility(View.INVISIBLE);
+
+        Toast.makeText(getApplicationContext(), "Reparto de cartas", Toast.LENGTH_SHORT).show();
+
+        //ESTABLECER PUNTUACION INICIAL JUGADOR 1
         int num1 = devolverValorCarta(manoJ1.get(0));
         int num2 = devolverValorCarta(manoJ1.get(1));
         suma1 = num1 + num2;
         valorTotal1.setText(Integer.toString(suma1));
 
 
-        //ESTABLECER BARAJA Y PUNTUACION INICIAL JUGADOR 2
-        String imageUrl12 = "https://deckofcardsapi.com/static/img/" + manoJ2.get(0) + ".png";
-        Picasso.get().load(imageUrl12).into(listaImagesJ2.get(0));
-
-        String imageUrl22 = "https://deckofcardsapi.com/static/img/" + manoJ2.get(1) + ".png";
-        Picasso.get().load(imageUrl22).into(listaImagesJ2.get(1));
+        //ESTABLECER PUNTUACION INICIAL JUGADOR 2
         int num3 = devolverValorCarta(manoJ2.get(0));
         int num4 = devolverValorCarta(manoJ2.get(1));
         suma2 = num3 + num4;
         valorTotal2.setText(Integer.toString(suma2));
 
 
-        //ESTABLECER BARAJA Y PUNTUACION INICIAL CRUPIER
-        String imageCrupier1 = "https://deckofcardsapi.com/static/img/" + manoCrupier.get(0) + ".png";
-        Picasso.get().load(imageCrupier1).into(listaImagesCrupier.get(0));
+        //ESTABLECER PUNTUACION INICIAL CRUPIER
 
         int num5 = devolverValorCarta(manoCrupier.get(0));
         suma3 = num5;
@@ -160,91 +182,93 @@ public class BlackJack extends ComponentActivity {
 
 
         new Handler().postDelayed(() -> {
-            validarGanador2();
-            Toast.makeText(getApplicationContext(), "Turno Jugador 1", Toast.LENGTH_LONG).show();
-            cogerCarta.setVisibility(View.VISIBLE);
-            cogerCarta.setClickable(true);
-            plantarse1.setClickable(true);
+            if(!validarGanador2()){
+                Toast.makeText(getApplicationContext(), "Turno Jugador 1", Toast.LENGTH_LONG).show();
+                cogerCarta.setVisibility(View.VISIBLE);
+                cogerCarta.setClickable(true);
+                plantarse1.setClickable(true);
+            }
+
         }, 4000);
     }
 
     public void turno(View view) {
         if (turnoJ1) {
-                AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
-                dialogo.setTitle("¿Quieres coger otra carta?");
-                dialogo.setMessage("Juégatela venga");
-                dialogo.setCancelable(false);
-                dialogo.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo, int id) {
-                        String imageNueva = "https://deckofcardsapi.com/static/img/" + manoJ1.get(posicionManoJ1) + ".png";
-                        Picasso.get().load(imageNueva).into(listaImagesJ1.get(posicionManoJ1));
+            AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+            dialogo.setTitle("¿Quieres coger otra carta?");
+            dialogo.setMessage("Juégatela venga");
+            dialogo.setCancelable(false);
+            dialogo.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo, int id) {
+                    String imageNueva = "https://deckofcardsapi.com/static/img/" + manoJ1.get(posicionManoJ1) + ".png";
+                    Picasso.get().load(imageNueva).into(listaImagesJ1.get(posicionManoJ1));
 
-                        listaImagesJ1.get(posicionManoJ1).setVisibility(View.VISIBLE);
-                        suma1 = suma1 + devolverValorCarta(manoJ1.get(posicionManoJ1));
-                        valorTotal1.setText(Integer.toString(suma1));
+                    listaImagesJ1.get(posicionManoJ1).setVisibility(View.VISIBLE);
+                    suma1 = suma1 + devolverValorCarta(manoJ1.get(posicionManoJ1));
+                    valorTotal1.setText(Integer.toString(suma1));
 
-                        for (int i = 0; i < manoJ1.size(); i++) {
-                            if (manoJ1.get(i).charAt(0) == 'A') {
-                                suma1 = suma1 - 10;
-                            }
+                    for (int i = 0; i < manoJ1.size(); i++) {
+                        if (manoJ1.get(i).charAt(0) == 'A') {
+                            suma1 = suma1 - 10;
                         }
-
-                        if (suma1 > 21) {
-
-                            Toast.makeText(getApplicationContext(), "Perdiste! Turno Jugador 2", Toast.LENGTH_LONG).show();
-                            plantarse1.setClickable(false);
-                            valorTotal1.setTextColor(Color.RED);
-                            turnoJ1 = false;
-                            plantarse2.setClickable(true);
-                        }
-                        if (suma1 == 21) {
-                            validarGanador();
-                        }
-                        posicionManoJ1++;
                     }
 
-                });
-                dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo, int id) {
+                    if (suma1 > 21) {
 
+                        Toast.makeText(getApplicationContext(), "Perdiste! Turno Jugador 2", Toast.LENGTH_LONG).show();
+                        plantarse1.setClickable(false);
+                        valorTotal1.setTextColor(Color.RED);
+                        turnoJ1 = false;
+                        plantarse2.setClickable(true);
                     }
-                });
+                    if (suma1 == 21) {
+                        validarGanador();
+                    }
+                    posicionManoJ1++;
+                }
 
-                dialogo.show();
+            });
+            dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo, int id) {
+
+                }
+            });
+
+            dialogo.show();
         } else {
 
-                AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
-                dialogo.setTitle("¿Quieres coger otra carta?");
-                dialogo.setMessage("Juégatela venga");
-                dialogo.setCancelable(false);
-                dialogo.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
-                        String imageNueva = "https://deckofcardsapi.com/static/img/" + manoJ2.get(posicionManoJ2) + ".png";
-                        Picasso.get().load(imageNueva).into(listaImagesJ2.get(posicionManoJ2));
-                        listaImagesJ2.get(posicionManoJ2).setVisibility(View.VISIBLE);
-                        suma2 = suma2 + devolverValorCarta(manoJ2.get(posicionManoJ2));
-                        valorTotal2.setText(Integer.toString(suma2));
+            AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+            dialogo.setTitle("¿Quieres coger otra carta?");
+            dialogo.setMessage("Juégatela venga");
+            dialogo.setCancelable(false);
+            dialogo.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+                    String imageNueva = "https://deckofcardsapi.com/static/img/" + manoJ2.get(posicionManoJ2) + ".png";
+                    Picasso.get().load(imageNueva).into(listaImagesJ2.get(posicionManoJ2));
+                    listaImagesJ2.get(posicionManoJ2).setVisibility(View.VISIBLE);
+                    suma2 = suma2 + devolverValorCarta(manoJ2.get(posicionManoJ2));
+                    valorTotal2.setText(Integer.toString(suma2));
 
-                        for (int i = 0; i < manoJ2.size(); i++) {
-                            if (suma2 > 21 && manoJ2.get(i).charAt(0) == 'A') {
-                                suma2 = suma2 - 10;
-                            }
+                    for (int i = 0; i < manoJ2.size(); i++) {
+                        if (suma2 > 21 && manoJ2.get(i).charAt(0) == 'A') {
+                            suma2 = suma2 - 10;
                         }
-                        if (suma2 > 21) {
-                           turnoCrupier();
-                        }
-                        if (suma2 == 21) {
-                            validarGanador();
-                        }
-                        posicionManoJ2++;
                     }
-                });
-                dialogo.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
+                    if (suma2 > 21) {
+                        turnoCrupier();
+                    }
+                    if (suma2 == 21) {
+                        validarGanador();
+                    }
+                    posicionManoJ2++;
+                }
+            });
+            dialogo.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
 
-                    }
-                });
-                dialogo.show();
+                }
+            });
+            dialogo.show();
 
         }
     }
@@ -265,23 +289,29 @@ public class BlackJack extends ComponentActivity {
         }
         return num;
     }
-    private void validarGanador2() {
-        if (suma1 == 21){
+
+    private boolean validarGanador2() {
+        boolean ganador=false;
+        if (suma1 == 21) {
+            ganador = true;
             jugardeNuevo("GANADOR J1");
-        }else if(suma2 ==21){
+        } else if (suma2 == 21) {
+            ganador = true;
             jugardeNuevo("GANADOR J2");
         }
+        return ganador;
     }
+
     private void validarGanador() {
 
         String texto = "";
-        if ((suma1 > suma2 && suma1 > suma3) || suma1 <= 21) {
+        if (suma1 > suma2 && suma1 > suma3 && suma1 <= 21) {
             texto = "GANADOR J1";
             jugardeNuevo(texto);
-        } else if ((suma2 > suma1 && suma1 > suma3) || suma2 <= 21) {
+        } else if (suma2 > suma1 && suma2 > suma3 && suma2 <= 21) {
             texto = "GANADOR J2";
             jugardeNuevo(texto);
-        } else if ((suma3 > suma1 && suma3 > suma2) || suma3 <= 21) {
+        } else if (suma3 > suma1 && suma3 > suma2 && suma3 <= 21) {
             texto = "GANA EL CRUPIER";
             jugardeNuevo(texto);
         } else {
@@ -290,24 +320,33 @@ public class BlackJack extends ComponentActivity {
         }
 
     }
-    public void jugardeNuevo(String texto){
+
+    public void jugardeNuevo(String texto) {
         AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
         dialogo.setTitle(texto);
         dialogo.setMessage("¿Quereis jugar de nuevo?");
         dialogo.setCancelable(false);
         dialogo.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {
-
+                Intent intent = new Intent(BlackJack.this, BlackJack.class);
+                startActivity(intent);
+                finish();
+                resetearActividad();
             }
         });
         dialogo.setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {
 
+                Intent intent = new Intent(BlackJack.this, CarreraCaballos.class);
+                startActivity(intent);
+                finish();
+                resetearActividad();
             }
         });
         dialogo.show();
     }
-    public void plantarse1(View view){
+
+    public void plantarse1(View view) {
         AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
         dialogo.setTitle("¿Estás seguro que quieres plantarte?");
         dialogo.setCancelable(false);
@@ -326,32 +365,58 @@ public class BlackJack extends ComponentActivity {
         });
         dialogo.show();
     }
-    public void plantarse2(View view){
-      turnoCrupier();
+
+    public void plantarse2(View view) {
+        AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+        dialogo.setTitle("¿Estás seguro que quieres plantarte?");
+        dialogo.setCancelable(false);
+        dialogo.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                turnoCrupier();
+            }
+
+        });
+        dialogo.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+
+            }
+        });
+        dialogo.show();
     }
 
-    private void turnoCrupier(){
+    private void turnoCrupier() {
         cogerCarta.setClickable(false);
         plantarse2.setClickable(false);
         Toast.makeText(getApplicationContext(), "TURNO CRUPIER", Toast.LENGTH_LONG).show();
-        while (suma3 <= 16){
+        while (suma3 <= 16) {
             String imageCrupier1 = "https://deckofcardsapi.com/static/img/" + manoCrupier.get(posicionManoCrupier) + ".png";
             Picasso.get().load(imageCrupier1).into(listaImagesCrupier.get(posicionManoCrupier));
             listaImagesCrupier.get(posicionManoCrupier).setVisibility(View.VISIBLE);
             suma3 += devolverValorCarta(manoCrupier.get(posicionManoCrupier));
             valorTotalCrupier.setText(String.valueOf(suma3));
             posicionManoCrupier++;
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+
         }
 
         if (suma3 > 21) {
             valorTotalCrupier.setTextColor(Color.RED);
         }
 
-        new Handler().postDelayed(() -> validarGanador(), 2000);
+        new Handler().postDelayed(() -> validarGanador(), 2500);
+    }
+    private void resetearActividad(){
+        turnoJ1 = true;
+        suma1 = 0;
+        suma2 = 0;
+        suma3 = 0;
+        manoJ1.clear();
+        manoJ2.clear();
+        manoCrupier.clear();
+        posicionManoJ1 = 2;
+        posicionManoJ2 = 2;
+        posicionManoCrupier = 1;
+        listaImagesJ1.clear();
+        listaImagesJ2.clear();
+        listaImagesCrupier.clear();
     }
 }
