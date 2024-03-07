@@ -3,18 +3,14 @@ package com.example.yoyagames;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.ComponentActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class CarreraCaballos extends ComponentActivity {
 
@@ -27,8 +23,8 @@ public class CarreraCaballos extends ComponentActivity {
     TextView txj2;
     ImageView imgcaballo1;
     ImageView imgcaballo2;
-    int contadorCaballo1=0;
-    int contadorCaballo2=0;
+    static int contadorCaballo1 = 0;
+    static int contadorCaballo2 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,23 +39,36 @@ public class CarreraCaballos extends ComponentActivity {
         txj2 = findViewById(R.id.textj2);
     }
 
-    public void moverj1(View view){
-        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) imgcaballo1.getLayoutParams();
-        params.setMargins(params.leftMargin + 30, params.topMargin, params.rightMargin, params.bottomMargin);
-        imgcaballo1.setLayoutParams(params);
-        contadorCaballo1++;
+    public void moverj1(View view) {
+        if(contadorCaballo1 <= 15){
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) imgcaballo1.getLayoutParams();
+            params.setMargins(params.leftMargin + 30, params.topMargin + 2, params.rightMargin, params.bottomMargin);
+            imgcaballo1.setLayoutParams(params);
+            contadorCaballo1++;
+        }
+        if(contadorCaballo1>15 && contadorCaballo1<=30){
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) imgcaballo1.getLayoutParams();
+            params.setMargins(params.leftMargin + 30, params.topMargin + 1, params.rightMargin, params.bottomMargin);
+            imgcaballo1.setLayoutParams(params);
+            contadorCaballo1++;
+        }
+        if(contadorCaballo1>30 && contadorCaballo1<=55){
+
+        }
+
         verificarganador();
     }
 
-    public void moverj2(View view){
+    public void moverj2(View view) {
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) imgcaballo2.getLayoutParams();
         params.setMargins(params.leftMargin + 30, params.topMargin, params.rightMargin, params.bottomMargin);
         imgcaballo2.setLayoutParams(params);
         contadorCaballo2++;
-        verificarganador(); }
+        verificarganador();
+    }
 
-    private void verificarganador(){
-        if(contadorCaballo1 == 55){
+    private void verificarganador() {
+        if (contadorCaballo1 == 55) {
 
             botonj1.setClickable(false);
             botonj2.setClickable(false);
@@ -86,8 +95,8 @@ public class CarreraCaballos extends ComponentActivity {
                     params2.setMargins(params2.leftMargin - (30 * contadorCaballo2), params2.topMargin, params2.rightMargin, params2.bottomMargin);
                     imgcaballo2.setLayoutParams(params2);
 
-                    contadorCaballo1 =0;
-                    contadorCaballo2 =0;
+                    contadorCaballo1 = 0;
+                    contadorCaballo2 = 0;
 
                     dialog1.cancel();
                 }
@@ -101,7 +110,7 @@ public class CarreraCaballos extends ComponentActivity {
             });
             dialog1.show();
 
-        }else if (contadorCaballo2 == 55){
+        } else if (contadorCaballo2 == 55) {
             botonj1.setClickable(false);
             botonj2.setClickable(false);
             AlertDialog.Builder dialogo2 = new AlertDialog.Builder(this, R.style.fondoalertcaballo2);
@@ -122,11 +131,11 @@ public class CarreraCaballos extends ComponentActivity {
                     imgcaballo2.setLayoutParams(params3);
 
                     ViewGroup.MarginLayoutParams params4 = (ViewGroup.MarginLayoutParams) imgcaballo1.getLayoutParams();
-                    params4.setMargins(params4.leftMargin - (30*contadorCaballo1), params4.topMargin, params4.rightMargin, params4.bottomMargin);
+                    params4.setMargins(params4.leftMargin - (30 * contadorCaballo1), params4.topMargin, params4.rightMargin, params4.bottomMargin);
                     imgcaballo1.setLayoutParams(params4);
 
-                    contadorCaballo1 =0;
-                    contadorCaballo2 =0;
+                    contadorCaballo1 = 0;
+                    contadorCaballo2 = 0;
                 }
             });
             dialogo2.setNegativeButton("No", new DialogInterface.OnClickListener() {

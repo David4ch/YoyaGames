@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">YoyaGames</string>
+    <string name="textNombre">Ej: pedro23</string>
+    <string name="textContrasena">Minimo 4 caracteres</string>
 </resources>
