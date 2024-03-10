@@ -16,10 +16,10 @@
         android:theme="@style/Theme.YoyaGames"
         tools:targetApi="34">
         <activity
-            android:name=".BlackJack"
+            android:name=".BuscarParejaCarta"
             android:exported="true"
             android:label="YoyaGames"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.YoyaGames">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

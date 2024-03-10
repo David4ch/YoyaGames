@@ -1,6 +1,7 @@
 package com.example.yoyagames;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -128,7 +130,8 @@ public class BuscarParejaCarta extends ComponentActivity {
             }
         } else {
             mp = MediaPlayer.create(this, resID);
-            mp.setVolume(5.18F, 5.19F);
+            mp.setVolume(9.18F, 9.19F);
+            mp.start();
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
@@ -136,9 +139,7 @@ public class BuscarParejaCarta extends ComponentActivity {
                     mediaPlayer.release();
                 }
             });
-            if (!mp.isPlaying()) {
-                mpFondo.start();
-            }
+
         }
     }
 
@@ -156,7 +157,11 @@ public class BuscarParejaCarta extends ComponentActivity {
     }
 
     public void seleccionar(View imagen) {
-        musica("touch", false);
+        musica("touch", true);
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        if (vibrator.hasVibrator()) {
+            vibrator.vibrate(100);
+        }
         verificar(imagen);
     }
 

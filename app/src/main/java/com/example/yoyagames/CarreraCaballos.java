@@ -1,30 +1,33 @@
 package com.example.yoyagames;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 
 import androidx.activity.ComponentActivity;
 
 public class CarreraCaballos extends ComponentActivity {
-
-    Dialog dialog1;
-    Button si1;
-    Button no1;
     Button botonj1;
     Button botonj2;
     TextView txj1;
     TextView txj2;
-    ImageView imgcaballo1;
-    ImageView imgcaballo2;
+    static ImageView imgcaballo1;
+    static ImageView imgcaballo2;
     static int contadorCaballo1 = 0;
     static int contadorCaballo2 = 0;
+    TextView cuentaAtras;
+    TextView texto1;
+    ImageView fondoOscuro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,118 +40,142 @@ public class CarreraCaballos extends ComponentActivity {
         botonj2 = findViewById(R.id.j2);
         txj1 = findViewById(R.id.textj1);
         txj2 = findViewById(R.id.textj2);
+
+        fondoOscuro = findViewById(R.id.fondooscuro);
+        cuentaAtras = findViewById(R.id.cuentaAtras);
+        texto1 = findViewById(R.id.tww);
+
+        botonj1.setClickable(false);
+        botonj2.setClickable(false);
+        new CountDownTimer(4000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                cuentaAtras.setText(Integer.toString(Integer.parseInt(cuentaAtras.getText().toString()) - 1));
+            }
+
+            public void onFinish() {
+                fondoOscuro.setVisibility(View.INVISIBLE);
+                cuentaAtras.setVisibility(View.INVISIBLE);
+                texto1.setVisibility(View.INVISIBLE);
+
+                botonj1.setClickable(true);
+                botonj2.setClickable(true);
+            }
+        }.start();
     }
 
     public void moverj1(View view) {
-        if(contadorCaballo1 <= 15){
-            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) imgcaballo1.getLayoutParams();
-            params.setMargins(params.leftMargin + 30, params.topMargin + 2, params.rightMargin, params.bottomMargin);
-            imgcaballo1.setLayoutParams(params);
-            contadorCaballo1++;
-        }
-        if(contadorCaballo1>15 && contadorCaballo1<=30){
-            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) imgcaballo1.getLayoutParams();
-            params.setMargins(params.leftMargin + 30, params.topMargin + 1, params.rightMargin, params.bottomMargin);
-            imgcaballo1.setLayoutParams(params);
-            contadorCaballo1++;
-        }
-        if(contadorCaballo1>30 && contadorCaballo1<=55){
 
+        if (contadorCaballo1 <= 15) {
+            moverCaballo(40, 4, imgcaballo1, 1);
+        } else if (contadorCaballo1 > 15 && contadorCaballo1 <= 32) {
+            moverCaballo(35, 10, imgcaballo1, 1);
+        } else if (contadorCaballo1 == 32) {
+            imgcaballo1.setScaleX(-1);
+        } else if (contadorCaballo1 > 32 && contadorCaballo1 <= 46) {
+            moverCaballo(2, 17, imgcaballo1, 1);
+        } else if (contadorCaballo1 > 46 && contadorCaballo1 <= 52) {
+            moverCaballo(-35, 7, imgcaballo1, 1);
         }
 
         verificarganador();
     }
 
     public void moverj2(View view) {
-        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) imgcaballo2.getLayoutParams();
-        params.setMargins(params.leftMargin + 30, params.topMargin, params.rightMargin, params.bottomMargin);
-        imgcaballo2.setLayoutParams(params);
-        contadorCaballo2++;
+        if (contadorCaballo2 <= 15) {
+            moverCaballo(50, 4, imgcaballo2, 2);
+        } else if (contadorCaballo2 > 15 && contadorCaballo2 <= 32) {
+            moverCaballo(35, 20, imgcaballo2, 2);
+        } else if (contadorCaballo2 == 32) {
+           imgcaballo2.setScaleX(-1);
+
+        } else if (contadorCaballo2 > 32 && contadorCaballo2 <= 46) {
+            moverCaballo(2, 17, imgcaballo2, 2);
+        } else if (contadorCaballo2 > 46 && contadorCaballo2 <= 53) {
+            moverCaballo(-35, 7, imgcaballo2, 2);
+        }
         verificarganador();
     }
 
     private void verificarganador() {
-        if (contadorCaballo1 == 55) {
+        if (contadorCaballo1 == 52) {
 
-            botonj1.setClickable(false);
-            botonj2.setClickable(false);
-            dialog1 = new Dialog(CarreraCaballos.this);
-            dialog1.setContentView(R.layout.alertdialogcaballo1);
-            dialog1.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            dialog1.setCancelable(false);
-            si1 = dialog1.findViewById(R.id.btnConfirm);
-            no1 = dialog1.findViewById(R.id.btnCancel);
+            pregunta(1);
 
-            si1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    txj1.setText(String.valueOf(1 + Integer.parseInt(txj1.getText().toString())));
+        } else if (contadorCaballo2 == 52) {
 
-                    botonj1.setClickable(true);
-                    botonj2.setClickable(true);
-
-                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) imgcaballo1.getLayoutParams();
-                    params.setMargins(params.leftMargin - 1650, params.topMargin, params.rightMargin, params.bottomMargin);
-                    imgcaballo1.setLayoutParams(params);
-
-                    ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) imgcaballo2.getLayoutParams();
-                    params2.setMargins(params2.leftMargin - (30 * contadorCaballo2), params2.topMargin, params2.rightMargin, params2.bottomMargin);
-                    imgcaballo2.setLayoutParams(params2);
-
-                    contadorCaballo1 = 0;
-                    contadorCaballo2 = 0;
-
-                    dialog1.cancel();
-                }
-            });
-
-            no1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-            dialog1.show();
-
-        } else if (contadorCaballo2 == 55) {
-            botonj1.setClickable(false);
-            botonj2.setClickable(false);
-            AlertDialog.Builder dialogo2 = new AlertDialog.Builder(this, R.style.fondoalertcaballo2);
-            dialogo2.setTitle("HA GANADO EL CABALLO NARANJA");
-            dialogo2.setMessage("¿Queréis jugar de nuevo?");
-            dialogo2.setCancelable(false);
-            dialogo2.setPositiveButton("Si !", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogo1, int id) {
-                    txj2.setText(String.valueOf(1 + Integer.parseInt(txj2.getText().toString())));
-
-
-                    botonj1.setClickable(true);
-                    botonj2.setClickable(true);
-
-                    ViewGroup.MarginLayoutParams params3 = (ViewGroup.MarginLayoutParams) imgcaballo2.getLayoutParams();
-                    params3.setMargins(params3.leftMargin - 1650, params3.topMargin, params3.rightMargin, params3.bottomMargin);
-                    imgcaballo2.setLayoutParams(params3);
-
-                    ViewGroup.MarginLayoutParams params4 = (ViewGroup.MarginLayoutParams) imgcaballo1.getLayoutParams();
-                    params4.setMargins(params4.leftMargin - (30 * contadorCaballo1), params4.topMargin, params4.rightMargin, params4.bottomMargin);
-                    imgcaballo1.setLayoutParams(params4);
-
-                    contadorCaballo1 = 0;
-                    contadorCaballo2 = 0;
-                }
-            });
-            dialogo2.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogo1, int id) {
-
-                    //Ir al main
-                }
-            });
-
-            dialogo2.show();
+            pregunta(2);
         }
     }
 
+    private void moverCaballo(int leftMargin, int topMargin, ImageView caballo, int numCaballo) {
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) caballo.getLayoutParams();
+        params.setMargins(params.leftMargin + leftMargin, params.topMargin + topMargin, params.rightMargin, params.bottomMargin);
+        caballo.setLayoutParams(params);
+        if (numCaballo == 1) {
+            contadorCaballo1++;
+        } else if (numCaballo == 2) {
+            contadorCaballo2++;
+        }
+    }
 
+    private void resetearPosiciones() {
+        contadorCaballo1 = 0;
+        contadorCaballo2 = 0;
+
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) imgcaballo1.getLayoutParams();
+        params.setMargins(0, 0, 0, 0);
+        imgcaballo1.setLayoutParams(params);
+
+        ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) imgcaballo2.getLayoutParams();
+        params2.setMargins(0, 0, 0, 0);
+        imgcaballo2.setLayoutParams(params2);
+
+        botonj1.setClickable(false);
+        botonj2.setClickable(false);
+        fondoOscuro.setVisibility(View.VISIBLE);
+        texto1.setVisibility(View.VISIBLE);
+        cuentaAtras.setText("4");
+        cuentaAtras.setVisibility(View.VISIBLE);
+
+        new CountDownTimer(4000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                cuentaAtras.setText(Integer.toString(Integer.parseInt(cuentaAtras.getText().toString()) - 1));
+            }
+
+            public void onFinish() {
+                fondoOscuro.setVisibility(View.INVISIBLE);
+                cuentaAtras.setVisibility(View.INVISIBLE);
+                texto1.setVisibility(View.INVISIBLE);
+
+                botonj1.setClickable(true);
+                botonj2.setClickable(true);
+            }
+        }.start();
+
+    }
+
+    private void pregunta(int numCaballo) {
+        AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+        dialogo.setTitle("¡Ha ganado el J" + numCaballo + "!");
+        dialogo.setMessage("¿Quereis jugar de nuevo?");
+        dialogo.setCancelable(false);
+        dialogo.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                resetearPosiciones();
+                if (numCaballo == 1)
+                    txj1.setText(Integer.toString(1 + Integer.parseInt(txj1.getText().toString())));
+                if (numCaballo == 2)
+                    txj2.setText(Integer.toString(1 + Integer.parseInt(txj2.getText().toString())));
+            }
+        });
+        dialogo.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                Intent intent = new Intent(CarreraCaballos.this, VistaPrincipal.class);
+                startActivity(intent);
+                finish();
+                resetearPosiciones();
+            }
+        });
+        dialogo.show();
+    }
 }
