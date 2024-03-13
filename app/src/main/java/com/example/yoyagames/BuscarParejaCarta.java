@@ -301,6 +301,8 @@ public class BuscarParejaCarta extends ComponentActivity {
                     })
                     .setNegativeButton("Finalizar Juego", new DialogInterface.OnClickListener(){
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(BuscarParejaCarta.this, VistaPrincipal.class);
+                            startActivity(intent);
                             finish();
                             mpFondo.stop();
                         }

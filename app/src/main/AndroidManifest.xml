@@ -16,7 +16,7 @@
         android:theme="@style/Theme.YoyaGames"
         tools:targetApi="34">
         <activity
-            android:name=".BuscarParejaCarta"
+            android:name=".VistaAdmin"
             android:exported="true"
             android:label="YoyaGames"
             android:screenOrientation="portrait"
@@ -26,6 +26,48 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".VistaRegistro"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".VistaLogin"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".VistaPrincipal"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+        <activity
+            android:name=".BlackJack"
+            android:exported="true"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity
+            android:name=".BuscarParejaCarta"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".CarreraCaballos"
+            android:exported="true"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity
+            android:name=".JuegoMates"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".JuegoTiempo"
+            android:exported="true"
+            android:screenOrientation="landscape">
+        </activity>
+
     </application>
 
 </manifest>

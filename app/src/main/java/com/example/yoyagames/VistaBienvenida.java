@@ -14,7 +14,7 @@ public class VistaBienvenida extends ComponentActivity {
 
     }
     public void irAInicio(View view){
-        Intent intent = new Intent(VistaBienvenida.this, VistaLogin.class);
+        Intent intent = new Intent(VistaBienvenida.this,VistaPrincipal.class);
         startActivity(intent);
         finish();
     }
