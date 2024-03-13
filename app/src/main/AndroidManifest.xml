@@ -16,7 +16,7 @@
         android:theme="@style/Theme.YoyaGames"
         tools:targetApi="34">
         <activity
-            android:name=".VistaAdmin"
+            android:name=".VistaPrincipal"
             android:exported="true"
             android:label="YoyaGames"
             android:screenOrientation="portrait"
@@ -36,12 +36,7 @@
             android:exported="true"
             android:screenOrientation="portrait">
         </activity>
-        <activity
-            android:name=".VistaPrincipal"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            >
-        </activity>
+
         <activity
             android:name=".BlackJack"
             android:exported="true"

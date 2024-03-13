@@ -11,12 +11,22 @@ import android.widget.ViewFlipper;
 
 public class VistaPrincipal extends ComponentActivity {
     ViewFlipper flipper;
-
+    ImageView imgCaballos;
+    ImageView imgBlackjack;
+    ImageView imgMates;
+    ImageView imgTiempo;
+    ImageView imgParejas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vistaprincipal);
+
+        imgCaballos = findViewById(R.id.imgcaballos);
+        imgBlackjack = findViewById(R.id.imgblackjack);
+        imgMates = findViewById(R.id.imgmates);
+        imgTiempo = findViewById(R.id.imgcronometro);
+        imgParejas = findViewById(R.id.imgparejas);
 
         int[] imagenes={R.drawable.carruselblackjack, R.drawable.carruselcaballos, R.drawable.carruselmates, R.drawable.carruselbotones};
         flipper=findViewById(R.id.viewFlipper);
@@ -31,10 +41,10 @@ public class VistaPrincipal extends ComponentActivity {
 
                 switch (currentImagePosition) {
                     case 0:
-                        // Código para la primera imagen
+                        cambiar0(v);
                         break;
                     case 1:
-                        // Código para la segunda imagen
+                        cambiar1(v);
                         break;
                     case 2:
                         cambiar2(v);
@@ -60,6 +70,14 @@ public class VistaPrincipal extends ComponentActivity {
         flipper.setInAnimation(this, android.R.anim.slide_in_left);
         flipper.setOutAnimation(this, android.R.anim.slide_out_right);
     }
+    public void cambiar0(View view) {
+        Intent intent = new Intent(this, BlackJack.class);
+        startActivity(intent);
+    }
+    public void cambiar1(View view) {
+        Intent intent = new Intent(this, CarreraCaballos.class);
+        startActivity(intent);
+    }
     public void cambiar2(View view) {
         Intent intent = new Intent(this, JuegoMates.class);
         startActivity(intent);
@@ -67,6 +85,10 @@ public class VistaPrincipal extends ComponentActivity {
 
     public void cambiar3(View view) {
         Intent intent = new Intent(this, JuegoTiempo.class);
+        startActivity(intent);
+    }
+    public void cambiar4(View view) {
+        Intent intent = new Intent(this, BuscarParejaCarta.class);
         startActivity(intent);
     }
 }
