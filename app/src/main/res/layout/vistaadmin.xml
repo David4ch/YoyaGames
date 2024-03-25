@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
@@ -19,8 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView19"
@@ -36,9 +35,9 @@
                 android:id="@+id/scrollview1"
                 android:layout_width="334dp"
                 android:layout_height="340dp"
-                android:background="#D8CACA"
+                android:layout_marginLeft="38dp"
                 android:layout_marginBottom="30dp"
-                android:layout_marginLeft="38dp">
+                android:background="#D8CACA">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -51,7 +50,7 @@
                         android:layout_height="58dp"
                         android:ems="10"
                         android:inputType="text"
-                        android:text="Name" />
+                        android:text="nick" />
 
                     <EditText
                         android:id="@+id/editText12"
@@ -59,7 +58,7 @@
                         android:layout_height="59dp"
                         android:ems="10"
                         android:inputType="text"
-                        android:text="Name" />
+                        android:text="mail" />
 
                     <EditText
                         android:id="@+id/editText13"
@@ -67,147 +66,24 @@
                         android:layout_height="58dp"
                         android:ems="10"
                         android:inputType="text"
-                        android:text="Name" />
-
-                    <EditText
-                        android:id="@+id/editText14"
-                        android:layout_width="match_parent"
-                        android:layout_height="58dp"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:text="Name" />
+                        android:text="contraseña" />
 
                     <Button
                         android:id="@+id/button11"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="save" />
+                        android:onClick="update"
+                        android:text="Save" />
 
                     <Button
                         android:id="@+id/button12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="borrar"
                         android:text="Delete" />
                 </LinearLayout>
             </ScrollView>
 
-            <ScrollView
-                android:id="@+id/scrollview2"
-                android:layout_width="334dp"
-                android:layout_height="340dp"
-                android:background="#D8CACA"
-                android:layout_marginBottom="30dp"
-                android:layout_marginLeft="38dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/editTextText21"
-                        android:layout_width="match_parent"
-                        android:layout_height="58dp"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:text="Name" />
-
-                    <EditText
-                        android:id="@+id/editTextText22"
-                        android:layout_width="match_parent"
-                        android:layout_height="59dp"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:text="Name" />
-
-                    <EditText
-                        android:id="@+id/editTextText23"
-                        android:layout_width="match_parent"
-                        android:layout_height="58dp"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:text="Name" />
-
-                    <EditText
-                        android:id="@+id/editTextText24"
-                        android:layout_width="match_parent"
-                        android:layout_height="58dp"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:text="Name" />
-
-                    <Button
-                        android:id="@+id/button21"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="save" />
-
-                    <Button
-                        android:id="@+id/button22"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Delete" />
-                </LinearLayout>
-            </ScrollView>
-
-            <ScrollView
-                android:id="@+id/scrollview3"
-                android:layout_width="334dp"
-                android:layout_height="340dp"
-                android:layout_marginLeft="38dp"
-                android:layout_marginBottom="20dp"
-                android:background="#D8CACA">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/editText31"
-                        android:layout_width="match_parent"
-                        android:layout_height="58dp"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:text="Name" />
-
-                    <EditText
-                        android:id="@+id/editTextText32"
-                        android:layout_width="match_parent"
-                        android:layout_height="59dp"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:text="Name" />
-
-                    <EditText
-                        android:id="@+id/editTextText33"
-                        android:layout_width="match_parent"
-                        android:layout_height="58dp"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:text="Name" />
-
-                    <EditText
-                        android:id="@+id/editTextText34"
-                        android:layout_width="match_parent"
-                        android:layout_height="58dp"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:text="Name" />
-
-                    <Button
-                        android:id="@+id/button31"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="save" />
-
-                    <Button
-                        android:id="@+id/button32"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Delete" />
-                </LinearLayout>
-            </ScrollView>
         </LinearLayout>
     </ScrollView>
 

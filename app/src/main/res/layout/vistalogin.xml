@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondologin">
+    android:background="@drawable/fondologin"
+    tools:context=".VistaLogin">
 
     <EditText
-        android:id="@+id/entryLogin"
+        android:id="@+id/entryCorreo1"
         android:layout_width="225dp"
         android:layout_height="63dp"
         android:ems="10"
@@ -22,7 +23,7 @@
         app:layout_constraintVertical_bias="0.401" />
 
     <EditText
-        android:id="@+id/entryPassword"
+        android:id="@+id/entryPassword1"
         android:layout_width="225dp"
         android:layout_height="64dp"
         android:ems="10"
@@ -40,17 +41,16 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="240dp"
         android:fontFamily="sans-serif-condensed-medium"
-        android:text="Usuario"
+        android:text="Email"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/entryLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintHorizontal_bias="0.139"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.992" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView11"
@@ -92,10 +92,11 @@
         android:src="@drawable/ic_launcher_foreground" />
 
     <Button
-        android:id="@+id/registerbutton"
+        android:id="@+id/loginbutton"
         android:layout_width="172dp"
         android:layout_height="60dp"
         android:background="@drawable/formas"
+        android:onClick="logear"
         android:text="LOGIN"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

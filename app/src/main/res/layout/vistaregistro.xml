@@ -33,7 +33,7 @@
         app:layout_constraintVertical_bias="0.401" />
 
     <EditText
-        android:id="@+id/entryPassword"
+        android:id="@+id/entryPassword2"
         android:layout_width="225dp"
         android:layout_height="64dp"
         android:ems="10"
@@ -119,7 +119,7 @@
         app:layout_constraintVertical_bias="0.104" />
 
     <EditText
-        android:id="@+id/entryCorreo"
+        android:id="@+id/entryCorreo2"
         android:layout_width="225dp"
         android:layout_height="64dp"
         android:ems="10"
